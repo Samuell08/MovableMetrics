@@ -36,3 +36,22 @@ f:SetScript("OnUpdate", function()
       t:SetText(string.format("%d FPS  %d ms", fps, latency))
     end
 end)
+
+local function handleSlashCommand(msg)
+  msg = msg or ""
+  local cmd = string.lower(msg)
+
+  if cmd == "toggle" then
+    if f:IsVisible() then
+      HideUIPanel(f)
+    else
+      ShowUIPanel(f)
+    end
+  else
+    print("=== MovableMetrics Commands ===")
+    print("  /mm toggle - Toggle metrics")
+  end
+end
+
+SLASH_MM1 = "/mm"
+SlashCmdList["MM"] = handleSlashCommand

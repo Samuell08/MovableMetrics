@@ -1,0 +1,4 @@
+## Interface: 11800
+## Title: MovableMetrics
+## Notes: Simple movable FPS and latency display
+MovableMetrics.lua

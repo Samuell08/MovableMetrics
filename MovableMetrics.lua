@@ -38,7 +38,7 @@ t:SetFont("Fonts\\FRIZQT__.TTF", 10, "OUTLINE")
 f:RegisterEvent("VARIABLES_LOADED")
 f:SetScript("OnEvent", function()
   if MovableMetrics["hidden"] == 1 then
-      HideUIPanel(f)
+      f:Hide()
       print("MovableMetrics hidden, use /mm toggle to un-hide")
   end
 end)
@@ -60,10 +60,10 @@ local function handleSlashCommand(msg)
 
   if cmd == "toggle" then
     if f:IsVisible() then
-      HideUIPanel(f)
+      f:Hide()
       MovableMetrics["hidden"] = 1
     else
-      ShowUIPanel(f)
+      f:Show()
       MovableMetrics["hidden"] = 0
     end
   else

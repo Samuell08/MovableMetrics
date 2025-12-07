@@ -1,9 +1,14 @@
+-- load configuration file
+MovableMetrics = MovableMetrics or {}
+
 local elapsed = 0
 
+-- modulo
 function mod(a, b)
     return a - math.floor(a / b) * b
 end
 
+-- define frame
 local f = CreateFrame("Button", "PerformanceFrame", UIParent)
 f:SetPoint("CENTER", UIParent, 0, 0)
 f:SetWidth(80)
@@ -24,10 +29,21 @@ f:SetScript('OnMouseUp', function()
 end)
 f:SetFrameStrata'FULLSCREEN_DIALOG'
 
+-- define text inside the frame
 local t = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 t:SetPoint("CENTER", f, "CENTER")
 t:SetFont("Fonts\\FRIZQT__.TTF", 10, "OUTLINE")
 
+-- configure according to configuration file on load
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function()
+  if MovableMetrics.hidden then
+      HideUIPanel(f)
+      print("MovableMetrics hidden, use /mm toggle to un-hide")
+  end
+end)
+
+-- update text value every 30 frames
 f:SetScript("OnUpdate", function()
   local _, _, latency = GetNetStats();
   local fps = GetFramerate();
@@ -37,6 +53,7 @@ f:SetScript("OnUpdate", function()
     end
 end)
 
+-- handle slash commands
 local function handleSlashCommand(msg)
   msg = msg or ""
   local cmd = string.lower(msg)
@@ -44,8 +61,10 @@ local function handleSlashCommand(msg)
   if cmd == "toggle" then
     if f:IsVisible() then
       HideUIPanel(f)
+      MovableMetrics.hidden = 1
     else
       ShowUIPanel(f)
+      MovableMetrics.hidden = 0
     end
   else
     print("=== MovableMetrics Commands ===")
@@ -53,5 +72,6 @@ local function handleSlashCommand(msg)
   end
 end
 
+-- register slash commands
 SLASH_MM1 = "/mm"
 SlashCmdList["MM"] = handleSlashCommand

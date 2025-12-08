@@ -1,4 +1,5 @@
 ## Interface: 11800
+## Version: 1.0
 ## Title: MovableMetrics
 ## Notes: Simple movable FPS and latency display
 ## SavedVariables: MovableMetrics

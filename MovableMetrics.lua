@@ -37,7 +37,7 @@ t:SetFont("Fonts\\FRIZQT__.TTF", 10, "OUTLINE")
 -- configure according to configuration file on load
 f:RegisterEvent("VARIABLES_LOADED")
 f:SetScript("OnEvent", function()
-  if MovableMetrics["hidden"] == 1 then
+  if MovableMetrics["hidden"] then
       f:Hide()
       print("MovableMetrics hidden, use /mm toggle to un-hide")
   end
@@ -61,10 +61,10 @@ local function handleSlashCommand(msg)
   if cmd == "toggle" then
     if f:IsVisible() then
       f:Hide()
-      MovableMetrics["hidden"] = 1
+      MovableMetrics["hidden"] = true
     else
       f:Show()
-      MovableMetrics["hidden"] = 0
+      MovableMetrics["hidden"] = false
     end
   else
     print("=== MovableMetrics Commands ===")
